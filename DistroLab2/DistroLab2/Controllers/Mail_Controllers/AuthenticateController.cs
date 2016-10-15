@@ -13,8 +13,6 @@ namespace DistroLab2.Controllers.MailControllers
         {
             AuthenticateModel am = new AuthenticateModel();
             am.Register(user);
-
-            System.Diagnostics.Debug.WriteLine("Test stuff");
         }
     }
 }

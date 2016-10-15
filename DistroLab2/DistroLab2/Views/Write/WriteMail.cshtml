@@ -3,5 +3,18 @@
     ViewBag.Title = "WriteMail";
 }
 
+@{ 
+    DistroLab2.ViewModels.MailUserViewModel[] usrs = DistroLab2.Controllers.Mail_Controllers.WriteController.getUsers();
+    if(usrs == null)
+    {
+        return;
+    }
+
+    foreach(DistroLab2.ViewModels.MailUserViewModel user in usrs)
+    {
+        System.Diagnostics.Debug.WriteLine("User in WriteMail: " + user.Username);
+    }
+}
+
 <h2>WriteMail</h2>
 

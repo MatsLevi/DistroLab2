@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DistroLab2.Models.Mail_Models;
+using DistroLab2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +15,12 @@ namespace DistroLab2.Controllers.Mail_Controllers
         public ActionResult WriteMail()
         {
             return View();
+        }
+
+        public static MailUserViewModel[] getUsers()
+        {
+            GetMailModel gmm = new GetMailModel();
+            return gmm.getAllUsers();
         }
     }
 }
