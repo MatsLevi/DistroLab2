@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace DistroLab2.Controllers
 {
+    [Authorize]
     public class MailController : Controller
     {
          //GET: Mail
