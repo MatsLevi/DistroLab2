@@ -61,6 +61,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
             MessageViewModel messageCheck = mail.registerMail(UserListViewModel, Title, Message, senderId);
             messageCheck.Receivers = UserListViewModel.ToArray();
 
+            ModelState.Clear();
             return View("WriteMail", messageCheck);
         }
 
