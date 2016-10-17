@@ -13,20 +13,22 @@ namespace DistroLab2.Database
 
         }
 
-        public static bool RegisterMail(List<String> users, string MessageTitle, string msg, int userId)
+        public static Message RegisterMail(List<String> users, string MessageTitle, string msg, int userId)
         {
             using (var db = new DatabaseContext())
             {
                 try
                 {
-                    Message dbMsg = new Message { senderId = userId, timestamp = DateTime.Now.ToString(), message = msg, title = MessageTitle };
+                    String time = DateTime.Now.ToString();
+                    Message dbMsg = new Message { senderId = userId, timestamp = time, message = msg, title = MessageTitle };
                     db.Messages.Add(dbMsg);
+                    db.SaveChanges();
 
                     for (int i = 0; i < users.ToArray().Length; i++)
                     {
+                        dbMsg = (from Message in db.Messages where Message.senderId == userId && Message.timestamp == time && Message.message == msg && Message.title == MessageTitle select Message).First();
                         string uName = users.ToArray()[i];
                         User user = (from User in db.Users where User.name == uName select User).First();
-                        // dbMsg.messId ger prob fel id...
                         ReceivedMessage receivedMessage = new ReceivedMessage { messId = dbMsg.messId, userId = user.userId, read = false};
                         db.ReceivedMessages.Add(receivedMessage);
                     }
@@ -46,12 +48,12 @@ namespace DistroLab2.Database
                         System.Diagnostics.Debug.WriteLine("Message id: " + rm.messId + " receiver id: " + rm.userId + " read: " + rm.read);
                     }
 
-                    return true;
+                    return dbMsg;
                 }
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine("Failed to register mail!");
-                    return false;
+                    return null;
                 }
             }
         }
