@@ -57,16 +57,9 @@ namespace DistroLab2.Controllers.Mail_Controllers
             System.Diagnostics.Debug.WriteLine("ID of current user: " + senderId);
             WriteModel mail = new WriteModel();
 
-            if (mail.registerMail(UserListViewModel, Title, Message, senderId) == null)
-            {
+            MessageViewModel messageCheck = mail.registerMail(UserListViewModel, Title, Message, senderId);
 
-            }
-            else
-            {
-
-            }
-
-            return View("WriteMail");
+            return View("WriteMail", messageCheck);
         }
 
         public static MailUserViewModel[] getUsers()
