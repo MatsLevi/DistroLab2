@@ -1,38 +1,34 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "WriteMail";
 }
 
 @{
     DistroLab2.ViewModels.MailUserViewModel[] usrs = DistroLab2.Controllers.Mail_Controllers.WriteController.getUsers();
-    if (usrs == null)
-    {
-        return;
-    }
-
-    foreach (DistroLab2.ViewModels.MailUserViewModel user in usrs)
-    {
-        System.Diagnostics.Debug.WriteLine("User in WriteMail: " + user.Username);
-    }
 }
 
-<h2>WriteMail</h2>
+@{
+    var usernames = new List<string>();
 
-<html>
-<head>
-    <style>
-        div.scroll {
-            background-color: #fa66c5;
-            width: 250px;
-            height: 250px;
-            overflow: scroll;
+    for(int i = 0; i < usrs.Length; i++)
+    {
+        usernames.Add(usrs[i].Username);
+    }
+
+    MultiSelectList msl = new MultiSelectList(usernames);
+}
+    <h2>WriteMail</h2>
+
+    <html>
+    <head>
+        
+    </head>
+    <body>
+
+        <p>Users</p>
+        @using (Html.BeginForm("WriteHello", "Write"))
+        {
+            @Html.ListBox("UserListViewModel", msl)
+            <input type="submit" />
         }
-    </style>
-</head>
-<body>
-
-    <p>Users:</p>
-    <div class="scroll">  </div>
-
-</body>
+    </body>
 </html>
