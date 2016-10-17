@@ -17,8 +17,6 @@
 
     MultiSelectList msl = new MultiSelectList(usernames);
 
-    //String success = "hej" + Model.MessId.ToString();
-
 }
     <h2>WriteMail</h2>
 
@@ -36,7 +34,7 @@
             <p>Mail Title:</p>
             @Html.TextBox("Title", "")
 
-            <p>Mail Title:</p>
+            <p>Mail Content:</p>
             @Html.TextArea("Message")
 
             <p></p>
@@ -45,14 +43,25 @@
 
         @if (Model != null)
         {
-            String success = "Meddelande numer " + Model.MessId.ToString() +" Sänt till: Somone " +" Sänt vid " +Model.Timestamp;
+            string[] Succcess = new string[Model.Receivers.Length];
+
+            for (int i = 0; i < Model.Receivers.Length; i++) {
+                Succcess[i] = "Message number: " +Model.MessId.ToString() +" Sent to: " +Model.Receivers[i] +" Sent at: " + Model.Timestamp;
+            }
+
 
             if (Model.Success == true)
             {
                 <p>Send succsesfull</p>
-                   @Html.Raw(success)
+
+                foreach (string s in Succcess)
+                {
+                    @Html.Raw(s)
+                    <p></p>
+                }
             }
-            else {
+            else
+            {
                 <p>Send failed</p>
             }
         }

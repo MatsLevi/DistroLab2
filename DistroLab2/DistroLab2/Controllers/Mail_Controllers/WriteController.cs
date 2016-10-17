@@ -28,10 +28,11 @@ namespace DistroLab2.Controllers.Mail_Controllers
             if (UserListViewModel == null || Title == null || Message == null)
             {
                 System.Diagnostics.Debug.WriteLine("Nulling it up in the write Controller");
+                return View("WriteMail");
             }
             else
             {
-                foreach (String s in UserListViewModel)
+                foreach (string s in UserListViewModel)
                     System.Diagnostics.Debug.WriteLine("List item: " + s);
 
                 System.Diagnostics.Debug.WriteLine("Title: " + Title);
@@ -40,7 +41,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
 
             //System.Diagnostics.Debug.WriteLine("List item: " + UserListViewModel.ToArray()[0]);
 
-            String currentUser = User.Identity.Name;
+            string currentUser = User.Identity.Name;
             System.Diagnostics.Debug.WriteLine("User name: " + currentUser);
 
             int senderId = 0;
@@ -58,6 +59,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
             WriteModel mail = new WriteModel();
 
             MessageViewModel messageCheck = mail.registerMail(UserListViewModel, Title, Message, senderId);
+            messageCheck.Receivers = UserListViewModel.ToArray();
 
             return View("WriteMail", messageCheck);
         }
