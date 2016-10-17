@@ -32,6 +32,20 @@ namespace DistroLab2.Database
                     }
 
                     db.SaveChanges();
+
+                    System.Diagnostics.Debug.WriteLine("DB Messages:");
+                    foreach (Message message in db.Messages.ToArray())
+                    {
+                        System.Diagnostics.Debug.WriteLine("Message id: " + message.messId + " sender id: " + message.senderId + " timestamp: " + message.timestamp);
+                        System.Diagnostics.Debug.WriteLine("message: " + message.message + " title: " + message.title);
+                    }
+
+                    System.Diagnostics.Debug.WriteLine("\n\nDB ReceivedMessages:");
+                    foreach (ReceivedMessage rm in db.ReceivedMessages.ToArray())
+                    {
+                        System.Diagnostics.Debug.WriteLine("Message id: " + rm.messId + " receiver id: " + rm.userId + " read: " + rm.read);
+                    }
+
                     return true;
                 }
                 catch (Exception e)
