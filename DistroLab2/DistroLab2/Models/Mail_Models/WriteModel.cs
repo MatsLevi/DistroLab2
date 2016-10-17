@@ -1,4 +1,5 @@
 ﻿using DistroLab2.Database;
+using DistroLab2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,14 @@ namespace DistroLab2.Models.Mail_Models
 
         }
 
-        public bool registerMail(List<String> users, string title, string message, int userId)
+        public MessageViewModel registerMail(List<String> users, string title, string message, int userId)
         {
-            return AddMail.RegisterMail(users, title, message, userId);
+            Message msg = AddMail.RegisterMail(users, title, message, userId);
+
+            if (msg == null)
+                return null;
+
+            return new MessageViewModel(msg.timestamp, msg.messId, true);
         }
     }
 }
