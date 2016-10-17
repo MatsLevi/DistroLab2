@@ -21,7 +21,6 @@ namespace DistroLab2.Database
                 {
                     Message dbMsg = new Message { senderId = userId, timestamp = DateTime.Now.ToString(), message = msg, title = MessageTitle };
                     db.Messages.Add(dbMsg);
-                    int[] receiveUserIds = new int[users.ToArray().Length];
 
                     for (int i = 0; i < users.ToArray().Length; i++)
                     {
