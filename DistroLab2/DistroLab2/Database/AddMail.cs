@@ -24,7 +24,7 @@ namespace DistroLab2.Database
                 for (int i = 0; i < users.ToArray().Length; i++)
                 {
                     // dbMsg.messId ger prob fel id...
-                    receivedMessages[i] = new ReceivedMessage { messId = dbMsg.messId  }
+                    receivedMessages[i] = new ReceivedMessage { messId = dbMsg.messId };
                 }
 
                 try
