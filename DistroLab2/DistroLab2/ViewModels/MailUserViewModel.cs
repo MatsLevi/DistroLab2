@@ -7,13 +7,15 @@ namespace DistroLab2.ViewModels
 {
     public class MailUserViewModel
     {
+        private int id { get; set; }
         private string username { get; set; }
         private int removedMess { get; set; }
         private int totalMess { get; set; }
         private int readMess { get; set; }
 
-        internal MailUserViewModel(string username, int removedMess, int totalMess, int readMess)
+        internal MailUserViewModel(int id, string username, int removedMess, int totalMess, int readMess)
         {
+            this.id = id;
             this.username = username;
             this.removedMess = removedMess;
             this.totalMess = totalMess;
@@ -25,6 +27,14 @@ namespace DistroLab2.ViewModels
             get
             {
                 return username;
+            }
+        }
+
+        public int ID
+        {
+            get
+            {
+                return id;
             }
         }
     }

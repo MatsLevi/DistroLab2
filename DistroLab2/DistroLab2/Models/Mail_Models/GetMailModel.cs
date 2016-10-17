@@ -26,7 +26,7 @@ namespace DistroLab2.Models.Mail_Models
             MailUserViewModel[] usrs = new MailUserViewModel[dbUsers.Length];
             for(int i = 0; i < usrs.Length; i++)
             {
-                usrs[i] = new MailUserViewModel(dbUsers[i].name, dbUsers[i].removedMess, dbUsers[i].totalMess, dbUsers[i].readMess);
+                usrs[i] = new MailUserViewModel(dbUsers[i].userId, dbUsers[i].name, dbUsers[i].removedMess, dbUsers[i].totalMess, dbUsers[i].readMess);
             }
 
             return usrs;

@@ -40,6 +40,24 @@ namespace DistroLab2.Controllers.Mail_Controllers
 
             //System.Diagnostics.Debug.WriteLine("List item: " + UserListViewModel.ToArray()[0]);
 
+            String currentUser = User.Identity.Name;
+            System.Diagnostics.Debug.WriteLine("User name: " + currentUser);
+
+            int senderId = 0;
+            MailUserViewModel[] users = getUsers();
+            foreach (MailUserViewModel m in users)
+            {
+                if (m.Username.Equals(currentUser))
+                {
+                    senderId = m.ID;
+                }
+            }
+
+
+            System.Diagnostics.Debug.WriteLine("ID of current user: " +senderId);
+            WriteModel mail = new WriteModel();
+            mail.registerMail(UserListViewModel, Title, Message, senderId);
+
             return View("WriteMail");
         }
 
