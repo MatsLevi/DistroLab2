@@ -21,12 +21,22 @@ namespace DistroLab2.Controllers.Mail_Controllers
         }
 
         [HttpPost]
-        public ActionResult WriteHello(List<String> UserListViewModel)
+        public ActionResult WriteHello(List<String> UserListViewModel, String Title, String Message)
         {
             System.Diagnostics.Debug.WriteLine("Entered Controller");
 
-            foreach(String s in UserListViewModel)
-                System.Diagnostics.Debug.WriteLine("List item: " + s);
+            if (UserListViewModel == null || Title == null || Message == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Nulling it up in the write Controller");
+            }
+            else
+            {
+                foreach (String s in UserListViewModel)
+                    System.Diagnostics.Debug.WriteLine("List item: " + s);
+
+                System.Diagnostics.Debug.WriteLine("Title: " +Title);
+                System.Diagnostics.Debug.WriteLine("Message: " + Message);
+            }
 
             //System.Diagnostics.Debug.WriteLine("List item: " + UserListViewModel.ToArray()[0]);
 
