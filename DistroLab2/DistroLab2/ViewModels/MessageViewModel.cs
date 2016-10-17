@@ -10,6 +10,7 @@ namespace DistroLab2.ViewModels
         private string timestamp;
         private int messId;
         private bool success;
+        private string[] receivers;
 
         public MessageViewModel(string timestamp, int messId, bool success)
         {
@@ -39,6 +40,18 @@ namespace DistroLab2.ViewModels
             get
             {
                 return success;
+            }
+        }
+
+        public string[] Receivers
+        {
+            get
+            {
+                return receivers;
+            }
+            set
+            {
+                receivers = value;
             }
         }
     }
