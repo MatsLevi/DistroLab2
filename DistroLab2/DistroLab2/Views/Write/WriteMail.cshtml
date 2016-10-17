@@ -20,7 +20,7 @@
 
     <html>
     <head>
-        
+
     </head>
     <body>
 
@@ -28,6 +28,13 @@
         @using (Html.BeginForm("WriteHello", "Write"))
         {
             @Html.ListBox("UserListViewModel", msl)
+            
+            <p>Mail Title:</p>
+            @Html.TextBox("Title")
+
+            <p>Mail Title:</p>
+            @Html.TextArea("Message")
+
             <p></p>
             <input type="submit" />
         }
