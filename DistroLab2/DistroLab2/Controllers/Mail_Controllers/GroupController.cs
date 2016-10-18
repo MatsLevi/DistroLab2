@@ -24,6 +24,27 @@ namespace DistroLab2.Controllers.Mail_Controllers
         }
 
         [HttpPost]
+        public ActionResult JoinGroup(string GroupListName)
+        {
+            System.Diagnostics.Debug.WriteLine("Entered JoinGroup");
+            System.Diagnostics.Debug.WriteLine("GroupList: " + GroupListName);
+
+            if (GroupListName == null || GroupListName.Equals(""))
+            {
+                System.Diagnostics.Debug.WriteLine("GroupListName: empty");
+                ModelState.Clear();
+                return View("ListGroups");
+
+            }
+
+            GroupModel gm = new GroupModel();
+            gm.JoinGroup(GroupListName, User.Identity.Name);
+
+            ModelState.Clear();
+            return View("ListGroups");
+        }
+
+        [HttpPost]
         public ActionResult LeaveGroup(string GroupList)
         {
             System.Diagnostics.Debug.WriteLine("Entered LeaveGroup");
@@ -32,6 +53,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
             if (GroupList == null || GroupList.Equals(""))
             {
                 System.Diagnostics.Debug.WriteLine("GroupList: empty");
+                ModelState.Clear();
                 return View("EditGroup");
 
             }
@@ -60,6 +82,12 @@ namespace DistroLab2.Controllers.Mail_Controllers
         {
             GroupModel gm = new GroupModel();
             return gm.getUserGroups(username);
+        }
+
+        public static GroupViewModel[] getAllGroups(string username)
+        {
+            GroupModel gm = new GroupModel();
+            return gm.getAllGroups(username);
         }
     }
 }

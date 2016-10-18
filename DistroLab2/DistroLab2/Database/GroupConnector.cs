@@ -51,6 +51,43 @@ namespace DistroLab2.Database
             }
         }
 
+        public static Group[] getAllGroups(string username)
+        {
+            using (var db = new DatabaseContext())
+            {
+                try
+                {
+                    User user = (from User in db.Users where User.name == username select User).First();
+                    GroupUser[] grpUsers = (from GroupUser in db.GroupUsers where GroupUser.userId == user.userId select GroupUser).ToArray();
+
+                    List<Group> groups = new List<Group>();
+                    bool add;
+
+                    for (int i = 0; i < db.Groups.ToArray().Length; i++)
+                    {
+                        add = true;
+                        foreach (GroupUser grpU in grpUsers)
+                        {
+                            if (db.Groups.ToArray()[i].groupId == grpU.groupId)
+                                add = false;
+                        }
+
+                        if (add)
+                            groups.Add(db.Groups.ToArray()[i]);
+
+                        add = true;
+                    }
+
+                    return groups.ToArray();
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to get all groups!");
+                    return null;
+                }
+            }
+        }
+
         public static bool AddGroup(string groupName, string groupCreator)
         {
             using (var db = new DatabaseContext())
@@ -110,6 +147,30 @@ namespace DistroLab2.Database
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine("Failed to leave group!");
+                    return false;
+                }
+            }
+        }
+
+        public static bool JoinGroup(string groupName, string username)
+        {
+            using (var db = new DatabaseContext())
+            {
+                try
+                {
+                    User user = (from User in db.Users where User.name == username select User).First();
+                    Group selGroup = (from Group in db.Groups where Group.name == groupName select Group).First();
+
+                    GroupUser groupUser = new GroupUser { groupId = selGroup.groupId, userId = user.userId };
+
+                    db.GroupUsers.Add(groupUser);
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to join group!");
                     return false;
                 }
             }
