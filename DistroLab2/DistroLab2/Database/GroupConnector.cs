@@ -26,12 +26,9 @@ namespace DistroLab2.Database
                     }
 
                     User user = (from User in db.Users where User.name == username select User).First();
-                    System.Diagnostics.Debug.WriteLine("Successfully got user: " + user.name + " user id: " + user.userId);
 
                     GroupUser[] groupUsers = (from GroupUser in db.GroupUsers where GroupUser.userId == user.userId select GroupUser).ToArray();
-                    System.Diagnostics.Debug.WriteLine("Successfully got groupUsers: " + groupUsers[0].groupId);
                     Group[] groups = new Group[groupUsers.Length];
-                    System.Diagnostics.Debug.WriteLine("Successfully created group array: " + groups.Length);
 
 
 
@@ -44,19 +41,6 @@ namespace DistroLab2.Database
                                 groups[i] = grp;
                             }
                         }
-                        
-                        
-                        
-                        
-                        
-                        
-                        //Group a = (from Group in db.Groups where Group.groupId == groupUsers[0].groupId select Group).First();
-                        //System.Diagnostics.Debug.WriteLine("Got past: " + a.name);
-
-                        //groups[i] = (from Group in db.Groups where Group.groupId == groupUsers[i].groupId select Group).First();
-                        //System.Diagnostics.Debug.WriteLine("group user id: " + groupUsers[i].groupId);
-                        //groups[i] = db.Groups.Where(u => u.groupId == groupUsers[i].groupId).First();
-                        System.Diagnostics.Debug.WriteLine("Successfully added groups");
                     }
                     
                     return groups;
