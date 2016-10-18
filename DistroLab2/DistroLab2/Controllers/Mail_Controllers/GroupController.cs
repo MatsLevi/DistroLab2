@@ -11,6 +11,11 @@ namespace DistroLab2.Controllers.Mail_Controllers
     [Authorize]
     public class GroupController : Controller
     {
+        public ActionResult EditGroup()
+        {
+            return View("EditGroup");
+        }
+
         public ActionResult EditGroupMail()
         {
             return View("EditGroup");

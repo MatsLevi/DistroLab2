@@ -5,6 +5,11 @@
 
 @{
     DistroLab2.ViewModels.GroupViewModel[] groups = DistroLab2.Controllers.Mail_Controllers.GroupController.getGroups(User.Identity.Name);
+
+    if (groups == null)
+    {
+        System.Diagnostics.Debug.WriteLine("EditGroup got null");
+    }
 }
 
 <h2>EditGroup</h2>
