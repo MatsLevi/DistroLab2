@@ -30,8 +30,6 @@ namespace DistroLab2.Database
                     GroupUser[] groupUsers = (from GroupUser in db.GroupUsers where GroupUser.userId == user.userId select GroupUser).ToArray();
                     Group[] groups = new Group[groupUsers.Length];
 
-
-
                     for (int i = 0; i < groupUsers.Length; i++)
                     {
                         foreach(Group grp in db.Groups.ToArray())
