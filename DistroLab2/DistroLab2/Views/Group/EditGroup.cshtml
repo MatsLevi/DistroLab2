@@ -6,11 +6,43 @@
 @{
     DistroLab2.ViewModels.GroupViewModel[] groups = DistroLab2.Controllers.Mail_Controllers.GroupController.getGroups(User.Identity.Name);
 
-    if (groups == null)
+    var groupNames = new List<string>();
+
+    if (groups != null)
     {
-        System.Diagnostics.Debug.WriteLine("EditGroup got null");
+        for (int i = 0; i < groups.Length; i++)
+        {
+            groupNames.Add(groups[i].GroupName);
+        }
     }
+
+    SelectList sl = new SelectList(groupNames);
 }
 
 <h2>EditGroup</h2>
 
+<html>
+<head>
+
+</head>
+<body>
+    @using (Html.BeginForm("LeaveGroup", "Group"))
+    {
+        <p>Groups</p>
+        @Html.ListBox("GroupList", sl)
+
+        <p></p>
+        <input type="submit" value="Leave" />
+        <p></p>
+    }
+
+    @using (Html.BeginForm("AddGroup", "Group"))
+    {
+        <p>Create Group</p>
+        @Html.TextBox("GroupBox", "")
+
+        <p></p>
+        <input type="submit" value="Add" />
+    }
+</body>
+</html>
