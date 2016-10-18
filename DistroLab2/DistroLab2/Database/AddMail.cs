@@ -79,7 +79,15 @@ namespace DistroLab2.Database
 
                     for (int i = 0; i < groupUsers.Length; i++)
                     {
-                       users[i] = (from User in db.Users where User.userId == groupUsers[i].userId select User).First();
+                        foreach (User usr in db.Users.ToArray())
+                        {
+                            if(usr.userId == groupUsers[i].userId)
+                            {
+                                users[i] = usr;
+                            }
+
+                            //users[i] = (from User in db.Users where User.userId == groupUsers[i].userId select User).First();
+                        }
                     }
 
                     System.Diagnostics.Debug.WriteLine("Passed get user loop from database in AddMail");
