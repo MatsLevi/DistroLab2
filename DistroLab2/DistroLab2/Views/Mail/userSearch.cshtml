@@ -15,7 +15,7 @@
 <head>
 </head>
 <body>
-    @using (Html.BeginForm("Inbox", "Mail"))
+    @using (Html.BeginForm("DisplayMails", "Mail"))
     {
         <p>Mails</p>
         @Html.ListBox("SenderList", sl, new { style = "width: 800px" })

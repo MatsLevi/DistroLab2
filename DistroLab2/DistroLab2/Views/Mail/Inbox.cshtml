@@ -1,10 +1,10 @@
-﻿
+﻿@model DistroLab2.ViewModels.InboxViewModelWrapper
 @{
     ViewBag.Title = "Inbox";
 }
 
 @{
-    DistroLab2.ViewModels.InboxViewModel[] messages = DistroLab2.Controllers.Mail_Controllers.MailController.getAllUserMails(User.Identity.Name);
+    DistroLab2.ViewModels.InboxViewModel[] messages = Model.InboxVMs;
 
     var titles = new List<string>();
 

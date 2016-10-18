@@ -14,6 +14,41 @@ namespace DistroLab2.Models.Mail_Models
 
         }
 
+        public InboxViewModel[] getAllUserMailsFromSender(string user, string sender)
+        {
+            Message[] messages = GetMessages.getMessages(user);
+            User[] users = GetUsers.getAllUsers();
+
+            List<Message> listOfMessages = new List<Message>();
+
+            int userId = -1;
+            for(int i = 0; i < users.Length; i++)
+            {
+                if(users[i].name == sender)
+                {
+                    userId = users[i].userId;
+                }
+            }
+
+            for(int i = 0; i < messages.Length; i++)
+            {
+                if(messages[i].senderId == userId)
+                {
+                    listOfMessages.Add(messages[i]);
+                }
+            }
+
+            InboxViewModel[] IVMs = new InboxViewModel[listOfMessages.ToArray().Length];
+            messages = listOfMessages.ToArray();
+
+            for(int i = 0; i < listOfMessages.ToArray().Length; i++)
+            {
+                IVMs[i] = new InboxViewModel(messages[i].title, messages[i].timestamp);
+            }
+
+            return IVMs;
+        }
+
         public MailUserViewModel[] getAllUsers()
         {
             User[] dbUsers = GetUsers.getAllUsers();

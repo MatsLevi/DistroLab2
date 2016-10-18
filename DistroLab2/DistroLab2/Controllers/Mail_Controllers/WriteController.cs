@@ -84,7 +84,8 @@ namespace DistroLab2.Controllers.Mail_Controllers
             if (MailGroup == null || Title == null || Message == null)
             {
                 System.Diagnostics.Debug.WriteLine("Nulling it up in the write Controller");
-                return View("WriteMail");
+                ModelState.Clear();
+                return View("SendToGroup");
             }
             else
             {

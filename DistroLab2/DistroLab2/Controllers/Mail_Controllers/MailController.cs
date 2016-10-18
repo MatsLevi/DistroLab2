@@ -11,15 +11,27 @@ namespace DistroLab2.Controllers.Mail_Controllers
     [Authorize]
     public class MailController : Controller
     {
-         //GET: Mail
         public ActionResult Inbox()
         {
-            return View();
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+
+            return View("Inbox", IVMW);
         }
 
         public ActionResult UserSearch()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult DisplayMails(string SenderList)
+        {
+            GetMailModel gm = new GetMailModel();
+            InboxViewModel[] IVM = gm.getAllUserMailsFromSender(User.Identity.Name, SenderList);
+
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(IVM);
+
+            return View("Inbox", IVMW);
         }
 
         public static InboxViewModel[] getAllUserMails(string username)
