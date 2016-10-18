@@ -20,6 +20,11 @@ namespace DistroLab2.Controllers.Mail_Controllers
             return View();
         }
 
+        public ActionResult SendToGroup()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult RegisterMail(List<String> UserListViewModel, String Title, String Message)
         {
@@ -69,6 +74,44 @@ namespace DistroLab2.Controllers.Mail_Controllers
         {
             GetMailModel gmm = new GetMailModel();
             return gmm.getAllUsers();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterGroupMail(string MailGroup, String Title, String Message)
+        {
+            System.Diagnostics.Debug.WriteLine("In writeController register group mail");
+
+            if (MailGroup == null || Title == null || Message == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Nulling it up in the write Controller");
+                return View("WriteMail");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("List item: " + MailGroup);
+                System.Diagnostics.Debug.WriteLine("Title: " + Title);
+                System.Diagnostics.Debug.WriteLine("Message: " + Message);
+            }
+
+            string currentUser = User.Identity.Name;
+            System.Diagnostics.Debug.WriteLine("User name: " + currentUser);
+
+            int senderId = 0;
+            MailUserViewModel[] users = getUsers();
+            foreach (MailUserViewModel m in users)
+            {
+                if (m.Username.Equals(currentUser))
+                {
+                    senderId = m.ID;
+                }
+            }
+
+            WriteModel mail = new WriteModel();
+
+            bool messageCheck = mail.registerGroupMail(MailGroup, Title, Message, senderId);
+
+            ModelState.Clear();
+            return View("SendToGroup");
         }
     }
 }
