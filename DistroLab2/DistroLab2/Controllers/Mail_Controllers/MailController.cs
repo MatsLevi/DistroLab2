@@ -1,10 +1,12 @@
-﻿using System;
+﻿using DistroLab2.Models.Mail_Models;
+using DistroLab2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DistroLab2.Controllers
+namespace DistroLab2.Controllers.Mail_Controllers
 {
     [Authorize]
     public class MailController : Controller
@@ -18,6 +20,12 @@ namespace DistroLab2.Controllers
         public ActionResult UserSearch()
         {
             return View();
+        }
+
+        public static InboxViewModel[] getAllUserMails(string username)
+        {
+            GetMailModel gm = new GetMailModel();
+            return gm.getAllUserMails(username);
         }
     }
 }
