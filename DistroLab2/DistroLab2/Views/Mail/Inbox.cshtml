@@ -3,7 +3,37 @@
     ViewBag.Title = "Inbox";
 }
 
+@{
+    DistroLab2.ViewModels.InboxViewModel[] messages = DistroLab2.Controllers.Mail_Controllers.MailController.getAllUserMails(User.Identity.Name);
 
+    var titles = new List<string>();
+
+    if (messages != null)
+    {
+        for (int i = 0; i < messages.Length; i++)
+        {
+            titles.Add(messages[i].Title + " \t" + messages[i].TimeStamp);
+        }
+    }
+
+    SelectList sl = new SelectList(titles);
+}
 
 <h2>Mail Inbox</h2>
 
+<html>
+<head>
+
+</head>
+<body>
+    @using (Html.BeginForm("Inbox", "Mail"))
+    {
+        <p>Mails</p>
+        @Html.ListBox("MailList", sl, new { style = "width: 800px" })
+
+        <p></p>
+        <input type="submit" value="View" />
+        <p></p>
+    }
+</body>
+</html>
