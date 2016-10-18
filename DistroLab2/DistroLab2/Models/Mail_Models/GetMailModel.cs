@@ -50,5 +50,39 @@ namespace DistroLab2.Models.Mail_Models
 
             return msgs;
         }
+
+        public List<string> getAllMailSenders(string username)
+        {
+            System.Diagnostics.Debug.WriteLine("Getting serders of recieved mails");
+            Message[] messages = GetMessages.getMessages(username);
+            User[] dbUsers = GetUsers.getAllUsers();
+
+            if (messages == null)
+            {
+                return null;
+            }
+
+            int[] sedersID = new int [messages.Length];
+            List<string> senders = new List<string>();
+
+            for (int i = 0; i < messages.Length; i++)
+            {
+                sedersID[i] = messages[i].senderId;
+            }
+
+            for (int i = 0; i < dbUsers.Length; i++)
+            {
+                for (int y = 0; y < dbUsers.Length; y++)
+                {
+                    if (dbUsers[i].userId == sedersID[y])
+                    {
+                        senders.Add(dbUsers[i].name);
+                        break;
+                    }
+                }
+            }
+
+            return senders;
+        }
     }
 }

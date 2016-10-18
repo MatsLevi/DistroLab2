@@ -27,5 +27,12 @@ namespace DistroLab2.Controllers.Mail_Controllers
             GetMailModel gm = new GetMailModel();
             return gm.getAllUserMails(username);
         }
+
+        public static List<string> getAllMailSenders(string username)
+        {
+            GetMailModel gm = new GetMailModel();
+
+            return gm.getAllMailSenders(username);
+        }
     }
 }

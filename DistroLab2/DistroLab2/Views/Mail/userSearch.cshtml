@@ -3,5 +3,26 @@
     ViewBag.Title = "userSearch";
 }
 
+@{
+    List <string> senders = DistroLab2.Controllers.Mail_Controllers.MailController.getAllMailSenders(User.Identity.Name);
+
+    SelectList sl = new SelectList(senders);
+}
+
 <h2>userSearch</h2>
 
+<html>
+<head>
+</head>
+<body>
+    @using (Html.BeginForm("Inbox", "Mail"))
+    {
+        <p>Mails</p>
+        @Html.ListBox("SenderList", sl, new { style = "width: 800px" })
+
+        <p></p>
+        <input type="submit" value="View" />
+        <p></p>
+    }
+</body>
+</html>
