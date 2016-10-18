@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "SendToGroup";
+}
+
+@{ 
+    DistroLab2.ViewModels.GroupViewModel[] groups = DistroLab2.Controllers.Mail_Controllers.GroupController.getGroups(User.Identity.Name);
+
+    var groupNames = new List<string>();
+
+    if (groups != null)
+    {
+        for (int i = 0; i < groups.Length; i++)
+        {
+            groupNames.Add(groups[i].GroupName);
+        }
+    }
+
+    SelectList sl = new SelectList(groupNames);
+}
+
+<h2>SendToGroup</h2>
+
+<html>
+<head>
+</head>
+<body>
+    @using (Html.BeginForm("RegisterGroupMail", "Write"))
+    {
+        <p>Groups</p>
+        @Html.ListBox("MailGroup", sl, new { style = "width: 200px; height: 200px" })
+
+
+        <p>Mail Title:</p>
+        @Html.TextBox("Title", "", new { style = "width: 200px" })
+
+        <p>Mail Content:</p>
+        @Html.TextArea("Message", new { style = "width: 400px" })
+
+        <p></p>
+        <input type="submit" />
+
+    }
+</body>
+</html>

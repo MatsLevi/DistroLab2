@@ -23,5 +23,15 @@ namespace DistroLab2.Models.Mail_Models
 
             return new MessageViewModel(msg.timestamp, msg.messId, true);
         }
+
+        public bool registerGroupMail(string group, string title, string message, int senderId)
+        {
+            Message msg = AddMail.RegisterGroupMail(group, title, message, senderId);
+
+            if (msg == null)
+                return false;
+
+            return true;
+        }
     }
 }
