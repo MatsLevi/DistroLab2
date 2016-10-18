@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "EditGroup";
+}
+
+@{
+    DistroLab2.ViewModels.GroupViewModel[] groups = DistroLab2.Controllers.Mail_Controllers.GroupController.getGroups(User.Identity.Name);
+}
+
+<h2>EditGroup</h2>
+

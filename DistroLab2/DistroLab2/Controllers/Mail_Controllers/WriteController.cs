@@ -21,7 +21,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
         }
 
         [HttpPost]
-        public ActionResult WriteHello(List<String> UserListViewModel, String Title, String Message)
+        public ActionResult RegisterMail(List<String> UserListViewModel, String Title, String Message)
         {
             System.Diagnostics.Debug.WriteLine("Entered Controller");
 
