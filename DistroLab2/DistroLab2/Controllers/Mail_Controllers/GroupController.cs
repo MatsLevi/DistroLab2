@@ -16,8 +16,21 @@ namespace DistroLab2.Controllers.Mail_Controllers
             return View("EditGroup");
         }
 
-        public ActionResult EditGroupMail()
+        [HttpPost]
+        public ActionResult LeaveGroup(string GroupList)
         {
+            return View("EditGroup");
+        }
+
+        [HttpPost]
+        public ActionResult AddGroup(string GroupBox)
+        {
+            System.Diagnostics.Debug.WriteLine("Entered AddGroup");
+            System.Diagnostics.Debug.WriteLine("GroupBox: " + GroupBox);
+
+            GroupModel gm = new GroupModel();
+            gm.AddGroup(GroupBox, User.Identity.Name);
+
             return View("EditGroup");
         }
 

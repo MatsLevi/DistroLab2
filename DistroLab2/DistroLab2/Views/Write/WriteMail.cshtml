@@ -29,13 +29,13 @@
         <p>Users</p>
         @using (Html.BeginForm("RegisterMail", "Write"))
         {
-            @Html.ListBox("UserListViewModel", msl)
+            @Html.ListBox("UserListViewModel", msl, new { style = "width: 200px; height: 200px" })
             
             <p>Mail Title:</p>
-            @Html.TextBox("Title", "")
+            @Html.TextBox("Title", "", new { style = "width: 200px" })
 
             <p>Mail Content:</p>
-            @Html.TextArea("Message")
+            @Html.TextArea("Message", new { style = "width: 400px" })
 
             <p></p>
             <input type="submit" />

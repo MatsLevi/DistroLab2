@@ -39,5 +39,10 @@ namespace DistroLab2.Models.Mail_Models
 
             return groupVMs;
         }
+
+        public bool AddGroup(string groupName, string creator)
+        {
+            return GroupConnector.AddGroup(groupName, creator);
+        }
     }
 }

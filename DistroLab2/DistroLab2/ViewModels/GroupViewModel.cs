@@ -15,5 +15,13 @@ namespace DistroLab2.ViewModels
             this.groupId = groupId;
             this.groupName = groupName;
         }
+
+        public string GroupName
+        {
+            get
+            {
+                return groupName;
+            }
+        }
     }
 }

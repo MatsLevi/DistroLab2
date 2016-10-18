@@ -15,7 +15,7 @@ namespace DistroLab2.Controllers
             return View();
         }
 
-        public ActionResult userSearch()
+        public ActionResult UserSearch()
         {
             return View();
         }
