@@ -4,19 +4,19 @@
 }
 
 @{
-    DistroLab2.ViewModels.InboxViewModel[] messages = DistroLab2.Controllers.Mail_Controllers.MailController.getAllUserMails(User.Identity.Name);
+    DistroLab2.ViewModels.GroupViewModel[] groups = DistroLab2.Controllers.Mail_Controllers.GroupController.getAllGroups(User.Identity.Name);
 
-    var titles = new List<string>();
+    var groupNames = new List<string>();
 
-    if (messages != null)
+    if (groups != null)
     {
-        for (int i = 0; i < messages.Length; i++)
+        for (int i = 0; i < groups.Length; i++)
         {
-            titles.Add(messages[i].Title + " \t" + messages[i].TimeStamp);
+            groupNames.Add(groups[i].GroupName);
         }
     }
 
-    SelectList sl = new SelectList(titles);
+    SelectList sl = new SelectList(groupNames);
 }
 
 <h2>ListGroups</h2>
@@ -26,13 +26,13 @@
 
 </head>
 <body>
-    @using (Html.BeginForm("ListGroups", "Group"))
+    @using (Html.BeginForm("JoinGroup", "Group"))
     {
         <p>Groups</p>
-        @Html.ListBox("MailList", sl, new { style = "width: 800px" })
+        @Html.ListBox("GroupListName", sl, new { style = "width: 800px" })
 
         <p></p>
-        <input type="submit" value="View" />
+        <input type="submit" value="Join" />
         <p></p>
     }
 </body>

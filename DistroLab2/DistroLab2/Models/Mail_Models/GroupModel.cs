@@ -18,17 +18,23 @@ namespace DistroLab2.Models.Mail_Models
         {
             Group[] groups = GroupConnector.getUserGroups(username);
 
-            if (groups != null && groups.Length != 0) {
-                foreach (Group g in groups)
-                {
-                    System.Diagnostics.Debug.WriteLine("Group: " + g.name);
-                }
-            } else
+            if(groups == null)
+                return null;
+
+            GroupViewModel[] groupVMs = new GroupViewModel[groups.Length];
+            for (int i = 0; i < groups.Length; i++)
             {
-                System.Diagnostics.Debug.WriteLine("User groups: failed");
+                groupVMs[i] = new GroupViewModel(groups[i].groupId, groups[i].name);
             }
 
-            if(groups == null)
+            return groupVMs;
+        }
+
+        public GroupViewModel[] getAllGroups(string username)
+        {
+            Group[] groups = GroupConnector.getAllGroups(username);
+
+            if (groups == null)
                 return null;
 
             GroupViewModel[] groupVMs = new GroupViewModel[groups.Length];
@@ -48,6 +54,11 @@ namespace DistroLab2.Models.Mail_Models
         public bool LeaveGroup(string groupName, string username)
         {
             return GroupConnector.LeaveGroup(groupName, username);
+        }
+
+        public bool JoinGroup(string groupName, string username)
+        {
+            return GroupConnector.JoinGroup(groupName, username);
         }
     }
 }
