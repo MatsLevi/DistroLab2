@@ -29,7 +29,7 @@
         <p>Users</p>
         @using (Html.BeginForm("RegisterMail", "Write"))
         {
-            @Html.ListBox("UserListViewModel", msl)
+            @Html.ListBox("UserListViewModel", msl, new { style = "width: 250px"})
             
             <p>Mail Title:</p>
             @Html.TextBox("Title", "")
