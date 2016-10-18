@@ -17,6 +17,12 @@ namespace DistroLab2.Controllers.Mail_Controllers
             return View("EditGroup");
         }
 
+        public ActionResult ListGroups()
+        {
+            ModelState.Clear();
+            return View("ListGroups");
+        }
+
         [HttpPost]
         public ActionResult LeaveGroup(string GroupList)
         {

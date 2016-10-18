@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "ListGroups";
+}
+
+@{
+    DistroLab2.ViewModels.InboxViewModel[] messages = DistroLab2.Controllers.Mail_Controllers.MailController.getAllUserMails(User.Identity.Name);
+
+    var titles = new List<string>();
+
+    if (messages != null)
+    {
+        for (int i = 0; i < messages.Length; i++)
+        {
+            titles.Add(messages[i].Title + " \t" + messages[i].TimeStamp);
+        }
+    }
+
+    SelectList sl = new SelectList(titles);
+}
+
+<h2>ListGroups</h2>
+
+<html>
+<head>
+
+</head>
+<body>
+    @using (Html.BeginForm("ListGroups", "Group"))
+    {
+        <p>Groups</p>
+        @Html.ListBox("MailList", sl, new { style = "width: 800px" })
+
+        <p></p>
+        <input type="submit" value="View" />
+        <p></p>
+    }
+</body>
+</html>
