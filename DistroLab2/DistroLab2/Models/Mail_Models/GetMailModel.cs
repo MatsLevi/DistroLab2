@@ -72,7 +72,7 @@ namespace DistroLab2.Models.Mail_Models
 
             for (int i = 0; i < dbUsers.Length; i++)
             {
-                for (int y = 0; y < dbUsers.Length; y++)
+                for (int y = 0; y < messages.Length; y++)
                 {
                     if (dbUsers[i].userId == sedersID[y])
                     {
