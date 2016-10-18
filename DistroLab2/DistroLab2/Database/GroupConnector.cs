@@ -32,15 +32,15 @@ namespace DistroLab2.Database
 
                     for (int i = 0; i < groupUsers.Length; i++)
                     {
-                        foreach(Group grp in db.Groups.ToArray())
+                        foreach (Group grp in db.Groups.ToArray())
                         {
-                            if(grp.groupId == groupUsers[i].groupId)
+                            if (grp.groupId == groupUsers[i].groupId)
                             {
                                 groups[i] = grp;
                             }
                         }
                     }
-                    
+
                     return groups;
                 }
                 catch (Exception e)
@@ -86,6 +86,30 @@ namespace DistroLab2.Database
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine("Failed to add group!");
+                    return false;
+                }
+            }
+        }
+
+        public static bool LeaveGroup(string groupName, string username)
+        {
+            using (var db = new DatabaseContext())
+            {
+                try
+                {
+                    User user = (from User in db.Users where User.name == username select User).First();
+                    Group usersGroup = (from Group in db.Groups where Group.name == groupName select Group).First();
+
+                    GroupUser groupUser = (from GroupUser in db.GroupUsers where GroupUser.groupId == usersGroup.groupId && GroupUser.userId == user.userId select GroupUser).First();
+
+                    db.GroupUsers.Remove(groupUser);
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to leave group!");
                     return false;
                 }
             }

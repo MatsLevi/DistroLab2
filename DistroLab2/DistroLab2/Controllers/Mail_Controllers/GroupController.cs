@@ -13,12 +13,27 @@ namespace DistroLab2.Controllers.Mail_Controllers
     {
         public ActionResult EditGroup()
         {
+            ModelState.Clear();
             return View("EditGroup");
         }
 
         [HttpPost]
         public ActionResult LeaveGroup(string GroupList)
         {
+            System.Diagnostics.Debug.WriteLine("Entered LeaveGroup");
+            System.Diagnostics.Debug.WriteLine("GroupList: " + GroupList);
+
+            if (GroupList == null || GroupList.Equals(""))
+            {
+                System.Diagnostics.Debug.WriteLine("GroupList: empty");
+                return View("EditGroup");
+
+            }
+
+            GroupModel gm = new GroupModel();
+            gm.LeaveGroup(GroupList, User.Identity.Name);
+
+            ModelState.Clear();
             return View("EditGroup");
         }
 
@@ -31,6 +46,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
             GroupModel gm = new GroupModel();
             gm.AddGroup(GroupBox, User.Identity.Name);
 
+            ModelState.Clear();
             return View("EditGroup");
         }
 

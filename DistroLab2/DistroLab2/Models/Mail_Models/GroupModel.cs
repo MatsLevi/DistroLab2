@@ -44,5 +44,10 @@ namespace DistroLab2.Models.Mail_Models
         {
             return GroupConnector.AddGroup(groupName, creator);
         }
+
+        public bool LeaveGroup(string groupName, string username)
+        {
+            return GroupConnector.LeaveGroup(groupName, username);
+        }
     }
 }
