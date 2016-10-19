@@ -26,10 +26,11 @@
 
 </head>
 <body>
-    @using (Html.BeginForm("Inbox", "Mail"))
+    @using (Html.BeginForm("DisplaySpecificMail", "Mail"))
     {
         <p>Mails</p>
         @Html.ListBox("MailList", sl, new { style = "width: 800px" })
+        <input type="hidden" id="" value=titles name="titles" />
 
         <p></p>
         <input type="submit" value="View" />

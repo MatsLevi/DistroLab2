@@ -24,6 +24,17 @@ namespace DistroLab2.Controllers.Mail_Controllers
         }
 
         [HttpPost]
+        public ActionResult DisplaySpecificMail(Object a)
+        {
+            System.Diagnostics.Debug.WriteLine("Entered DisplaySpecificMail!");
+            System.Diagnostics.Debug.WriteLine("a: " + ((string[])a)[0]);
+
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+
+            return View("Inbox", IVMW);
+        }
+
+        [HttpPost]
         public ActionResult DisplayMails(string SenderList)
         {
             GetMailModel gm = new GetMailModel();
