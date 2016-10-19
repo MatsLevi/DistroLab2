@@ -23,15 +23,39 @@ namespace DistroLab2.Controllers.Mail_Controllers
             return View();
         }
 
+        public ActionResult SpecificMail()
+        {
+            return View("SpecificMail");
+        }
+
         [HttpPost]
-        public ActionResult DisplaySpecificMail(Object a)
+        public ActionResult DisplaySpecificMail(string MailList)
         {
             System.Diagnostics.Debug.WriteLine("Entered DisplaySpecificMail!");
-            System.Diagnostics.Debug.WriteLine("a: " + ((string[])a)[0]);
+            System.Diagnostics.Debug.WriteLine("MailList: " + MailList);
 
-            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+            int mailId;
 
-            return View("Inbox", IVMW);
+            try
+            {
+                string parsedMailId = (MailList.Split(new char[] { ':' }))[0];
+                mailId = int.Parse(parsedMailId);
+            }
+            catch(Exception e)
+            {
+                InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+
+                System.Diagnostics.Debug.WriteLine("Failed to parse id");
+                ModelState.Clear();
+                return View("Inbox", IVMW);
+            }
+
+            System.Diagnostics.Debug.WriteLine("MailList: " + mailId);
+
+            GetMailModel gmm = new GetMailModel();
+            SpecificMailViewModel smvm = gmm.getSpecificMail(mailId, User.Identity.Name);
+
+            return View("SpecificMail", smvm);
         }
 
         [HttpPost]

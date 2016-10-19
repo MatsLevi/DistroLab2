@@ -23,5 +23,22 @@ namespace DistroLab2.Database
                 }
             }
         }
+
+        public static string getUser(int id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                try
+                {
+                    User user = (from User in db.Users where User.userId == id select User).First();
+                    return user.name;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to get user!");
+                    return null;
+                }
+            }
+        }
     }
 }

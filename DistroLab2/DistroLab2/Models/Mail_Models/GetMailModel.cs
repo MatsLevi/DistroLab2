@@ -43,7 +43,7 @@ namespace DistroLab2.Models.Mail_Models
 
             for(int i = 0; i < listOfMessages.ToArray().Length; i++)
             {
-                IVMs[i] = new InboxViewModel(messages[i].title, messages[i].timestamp);
+                IVMs[i] = new InboxViewModel(messages[i].title, messages[i].timestamp, messages[i].messId);
             }
 
             return IVMs;
@@ -80,7 +80,7 @@ namespace DistroLab2.Models.Mail_Models
             for (int i = 0; i < msgs.Length; i++)
             {
                 System.Diagnostics.Debug.WriteLine("msgs length: " + msgs.Length + " title: " + messages[i].title);
-                msgs[i] = new InboxViewModel(messages[i].title, messages[i].timestamp);
+                msgs[i] = new InboxViewModel(messages[i].title, messages[i].timestamp, messages[i].messId);
             }
 
             return msgs;
@@ -118,6 +118,16 @@ namespace DistroLab2.Models.Mail_Models
             }
 
             return senders;
+        }
+
+        public SpecificMailViewModel getSpecificMail(int mailId, string username)
+        {
+            Message message = GetMessages.getMessage(mailId, username);
+            string senderName = GetUsers.getUser(message.senderId);
+
+            System.Diagnostics.Debug.WriteLine("senderName: " + senderName + " message: " + message.message + " title: " + message.title);
+
+            return new SpecificMailViewModel(senderName, message.message, message.title);
         }
     }
 }

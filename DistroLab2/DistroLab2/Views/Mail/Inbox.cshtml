@@ -12,7 +12,7 @@
     {
         for (int i = 0; i < messages.Length; i++)
         {
-            titles.Add(messages[i].Title + " \t" + messages[i].TimeStamp);
+            titles.Add(messages[i].Id + ": " + messages[i].Title + " \t| " + messages[i].TimeStamp);
         }
     }
 
@@ -30,7 +30,6 @@
     {
         <p>Mails</p>
         @Html.ListBox("MailList", sl, new { style = "width: 800px" })
-        <input type="hidden" id="" value=titles name="titles" />
 
         <p></p>
         <input type="submit" value="View" />

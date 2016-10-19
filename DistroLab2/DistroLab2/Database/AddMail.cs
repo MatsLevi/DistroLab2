@@ -17,10 +17,12 @@ namespace DistroLab2.Database
         {
             using (var db = new DatabaseContext())
             {
+                Message dbMsg = null;
+
                 try
                 {
                     String time = DateTime.Now.ToString();
-                    Message dbMsg = new Message { senderId = userId, timestamp = time, message = msg, title = MessageTitle };
+                    dbMsg = new Message { senderId = userId, timestamp = time, message = msg, title = MessageTitle };
                     db.Messages.Add(dbMsg);
                     db.SaveChanges();
 
@@ -52,6 +54,12 @@ namespace DistroLab2.Database
                 }
                 catch (Exception e)
                 {
+                    if(dbMsg != null)
+                    {
+                        db.Messages.Remove(dbMsg);
+                        db.SaveChanges();
+                    }
+
                     System.Diagnostics.Debug.WriteLine("Failed to register mail!");
                     return null;
                 }
@@ -62,6 +70,8 @@ namespace DistroLab2.Database
         {
             using (var db = new DatabaseContext())
             {
+                Message dbMsg = null;
+
                 try
                 {
                     String time = DateTime.Now.ToString();
@@ -92,7 +102,7 @@ namespace DistroLab2.Database
 
                     System.Diagnostics.Debug.WriteLine("Passed get user loop from database in AddMail");
 
-                    Message dbMsg = new Message { senderId = userId, timestamp = time, message = msg, title = MessageTitle };
+                    dbMsg = new Message { senderId = userId, timestamp = time, message = msg, title = MessageTitle };
                     db.Messages.Add(dbMsg);
                     db.SaveChanges();
 
@@ -119,6 +129,12 @@ namespace DistroLab2.Database
                 }
                 catch (Exception e)
                 {
+                    if (dbMsg != null)
+                    {
+                        db.Messages.Remove(dbMsg);
+                        db.SaveChanges();
+                    }
+
                     System.Diagnostics.Debug.WriteLine("Failed to register group mail!");
                     return null;
                 } 
