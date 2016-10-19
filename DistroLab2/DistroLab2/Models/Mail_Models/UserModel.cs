@@ -23,7 +23,7 @@ namespace DistroLab2.Models.Mail_Models
         {
             User[] users = GetUsers.getAllUsers();
 
-            if(users == null)
+            if (users == null)
             {
                 return null;
             }
@@ -41,13 +41,35 @@ namespace DistroLab2.Models.Mail_Models
             ReceivedMessage[] receivedMessages = GetMessages.getReceivedMessages(user.userId);
             int unreadMessages = 0;
 
-            foreach(ReceivedMessage rm in receivedMessages)
+            foreach (ReceivedMessage rm in receivedMessages)
             {
                 if (!rm.read)
                     unreadMessages++;
             }
 
             return new IndexInfoViewModel(username, user.lastLogin, user.totalMonthLogin, unreadMessages);
+        }
+
+        public StatisticsViewModel getStatistics(string username)
+        {
+            User[] users = GetUsers.getAllUsers();
+
+            if (users == null)
+            {
+                return null;
+            }
+
+            User user = null;
+            foreach (User s in users)
+            {
+                if (s.name == username)
+                {
+                    user = s;
+                    break;
+                }
+            }
+
+            return new StatisticsViewModel(user.removedMess, user.totalMess, user.readMess);
         }
     }
 }

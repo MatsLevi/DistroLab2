@@ -8,10 +8,12 @@ namespace DistroLab2.ViewModels
     public class InboxViewModelWrapper
     {
         private InboxViewModel[] inboxVMs;
+        private StatisticsViewModel svm;
 
-        public InboxViewModelWrapper(InboxViewModel[] inboxVMs)
+        public InboxViewModelWrapper(InboxViewModel[] inboxVMs, StatisticsViewModel svm)
         {
             this.inboxVMs = inboxVMs;
+            this.svm = svm;
         }
 
         public InboxViewModel[] InboxVMs
@@ -19,6 +21,14 @@ namespace DistroLab2.ViewModels
             get
             {
                 return inboxVMs;
+            }
+        }
+
+        public StatisticsViewModel Svm
+        {
+            get
+            {
+                return svm;
             }
         }
     }

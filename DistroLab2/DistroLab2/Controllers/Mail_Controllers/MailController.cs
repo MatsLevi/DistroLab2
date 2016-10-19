@@ -13,7 +13,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
     {
         public ActionResult Inbox()
         {
-            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name), getStatistics(User.Identity.Name));
 
             return View("Inbox", IVMW);
         }
@@ -42,7 +42,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
             }
             catch (Exception e)
             {
-                InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+                InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name), getStatistics(User.Identity.Name));
 
                 System.Diagnostics.Debug.WriteLine("Failed to parse id");
                 ModelState.Clear();
@@ -62,7 +62,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
             GetMailModel gm = new GetMailModel();
             InboxViewModel[] IVM = gm.getAllUserMailsFromSender(User.Identity.Name, SenderList);
 
-            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(IVM);
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(IVM, getStatistics(User.Identity.Name));
 
             return View("Inbox", IVMW);
         }
@@ -79,7 +79,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
         {
             DeleteModel.deleteMail(mailId, User.Identity.Name);
 
-            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name), getStatistics(User.Identity.Name));
             ModelState.Clear();
             return View("Inbox", IVMW);
         }
@@ -93,8 +93,13 @@ namespace DistroLab2.Controllers.Mail_Controllers
         public static List<string> getAllMailSenders(string username)
         {
             GetMailModel gm = new GetMailModel();
-
             return gm.getAllMailSenders(username);
+        }
+
+        public static StatisticsViewModel getStatistics(string username)
+        {
+            UserModel um = new UserModel();
+            return um.getStatistics(username);
         }
     }
 }

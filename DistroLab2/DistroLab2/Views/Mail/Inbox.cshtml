@@ -19,13 +19,13 @@
     SelectList sl = new SelectList(titles);
 }
 
-<h2>Mail Inbox</h2>
-
 <html>
 <head>
 
 </head>
 <body>
+    <h2>Mail Inbox</h2>
+
     @using (Html.BeginForm("DisplaySpecificMail", "Mail"))
     {
         <p>Mails</p>
@@ -35,5 +35,10 @@
         <input type="submit" name="button" value="Delete" />
         <p></p>
     }
+
+    <br />
+    <br />
+    <br />
+    <p><b>Removed mess:</b> @Model.Svm.RemovedMess <b> Read mess:</b> @Model.Svm.ReadMess <b>Total mess:</b> @Model.Svm.TotalMess</p>
 </body>
 </html>
