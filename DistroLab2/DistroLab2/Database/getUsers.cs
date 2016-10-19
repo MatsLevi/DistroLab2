@@ -13,6 +13,13 @@ namespace DistroLab2.Database
             {
                 try
                 {
+                    System.Diagnostics.Debug.WriteLine("\n\nDB Users:");
+                    foreach (User usr in db.Users.ToArray())
+                    {
+                        System.Diagnostics.Debug.WriteLine("User id: " + usr.userId + " name: " + usr.name + " removed messages: " + usr.removedMess);
+                        System.Diagnostics.Debug.WriteLine("Total messages: " + usr.totalMess + " read messages: " + usr.readMess);
+                    }
+
                     User[] users = db.Users.ToArray();
                     return users;
                 }

@@ -29,10 +29,9 @@ namespace DistroLab2.Controllers.Mail_Controllers
         }
 
         [HttpPost]
-        public ActionResult DisplaySpecificMail(string MailList)
+        public ActionResult DisplaySpecificMail(string MailList, string button)
         {
             System.Diagnostics.Debug.WriteLine("Entered DisplaySpecificMail!");
-            System.Diagnostics.Debug.WriteLine("MailList: " + MailList);
 
             int mailId;
 
@@ -41,7 +40,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
                 string parsedMailId = (MailList.Split(new char[] { ':' }))[0];
                 mailId = int.Parse(parsedMailId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
 
@@ -52,10 +51,9 @@ namespace DistroLab2.Controllers.Mail_Controllers
 
             System.Diagnostics.Debug.WriteLine("MailList: " + mailId);
 
-            GetMailModel gmm = new GetMailModel();
-            SpecificMailViewModel smvm = gmm.getSpecificMail(mailId, User.Identity.Name);
-
-            return View("SpecificMail", smvm);
+            if (button.Equals("View"))
+                return ViewMail(mailId);
+            return deleteMail(mailId);
         }
 
         [HttpPost]
@@ -66,6 +64,23 @@ namespace DistroLab2.Controllers.Mail_Controllers
 
             InboxViewModelWrapper IVMW = new InboxViewModelWrapper(IVM);
 
+            return View("Inbox", IVMW);
+        }
+
+        public ActionResult ViewMail(int mailId)
+        {
+            GetMailModel gmm = new GetMailModel();
+            SpecificMailViewModel smvm = gmm.getSpecificMail(mailId, User.Identity.Name);
+
+            return View("SpecificMail", smvm);
+        }
+
+        public ActionResult deleteMail(int mailId)
+        {
+            DeleteModel.deleteMail(mailId, User.Identity.Name);
+
+            InboxViewModelWrapper IVMW = new InboxViewModelWrapper(getAllUserMails(User.Identity.Name));
+            ModelState.Clear();
             return View("Inbox", IVMW);
         }
 

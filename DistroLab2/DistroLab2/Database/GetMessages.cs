@@ -62,11 +62,22 @@ namespace DistroLab2.Database
                 try
                 {
                     Message message = (from Message in db.Messages where Message.messId == mailId select Message).First();
-                    ReceivedMessage receivedMessage = (from ReceivedMessage in db.ReceivedMessages where ReceivedMessage.messId == mailId select ReceivedMessage).First();
-                    receivedMessage.read = true;
-                    db.ReceivedMessages.Attach(receivedMessage);
-                    db.Entry(receivedMessage).Property(e => e.read).IsModified = true;
-                    db.SaveChanges();
+
+                    User user = (from User in db.Users where User.name == username select User).First();
+                    ReceivedMessage receivedMessage = (from ReceivedMessage in db.ReceivedMessages where ReceivedMessage.messId == mailId && ReceivedMessage.userId == user.userId select ReceivedMessage).First();
+
+                    if (!receivedMessage.read)
+                    {
+                        user.readMess = user.readMess + 1;
+                        db.Users.Attach(user);
+                        db.Entry(user).Property(e => e.readMess).IsModified = true;
+                        db.SaveChanges();
+
+                        receivedMessage.read = true;
+                        db.ReceivedMessages.Attach(receivedMessage);
+                        db.Entry(receivedMessage).Property(e => e.read).IsModified = true;
+                        db.SaveChanges();
+                    }
 
                     return message;
                 }
