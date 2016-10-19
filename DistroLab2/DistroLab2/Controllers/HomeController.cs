@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DistroLab2.Models.Mail_Models;
+using DistroLab2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,21 +13,10 @@ namespace DistroLab2.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            UserModel um = new UserModel();
+            IndexInfoViewModel ivm = um.getIndexViewModel(User.Identity.Name);
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View("Index", ivm);
         }
     }
 }

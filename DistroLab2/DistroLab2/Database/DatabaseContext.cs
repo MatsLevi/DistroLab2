@@ -51,6 +51,12 @@ namespace DistroLab2.Database
         public int totalMess { get; set; }
         [Required]
         public int readMess { get; set; }
+        [Required]
+        public string lastLogin { get; set; }
+        [Required]
+        public int totalMonthLogin { get; set; }
+        [Required]
+        public int currentMonth { get; set; }
     }
 
     public class Message

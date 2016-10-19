@@ -12,7 +12,11 @@ namespace DistroLab2.Database
         {
             using (var db = new DatabaseContext())
             {
-                User usr = new Database.User { name = user.Username, removedMess = 0, totalMess = 0, readMess = 0 };
+                User usr = new Database.User {
+                    name = user.Username, removedMess = 0, totalMess = 0,
+                    readMess = 0, lastLogin = DateTime.Now.ToString(), totalMonthLogin = 1,
+                    currentMonth = DateTime.Now.Month
+                };
 
                 try
                 {

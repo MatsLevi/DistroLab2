@@ -1,21 +1,20 @@
-﻿@{
+﻿@model DistroLab2.ViewModels.IndexInfoViewModel
+@{
     ViewBag.Title = "Dist2 - Index";
 }
 
-@{ 
-    string a = DateTime.Now.ToString();
 
-    System.Diagnostics.Debug.WriteLine("currentTimeMili: " + a);
-
-    using (var db = new DistroLab2.Database.DatabaseContext())
-    {
-        foreach(DistroLab2.Database.User u in db.Users.ToArray())
-        {
-            System.Diagnostics.Debug.WriteLine("User: " + u.name);
-        }
-    }
-}
-
-<div class="jumbotron">
-    <h1>Welcome</h1>
-</div>
+<html>
+<head>
+</head>
+<body>
+    <h1>Welcome: @Model.Username</h1>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <p><b>Last login:</b> @Model.LastLogin <b>Amount of logins this month:</b> @Model.LoginsThisMonth</p>
+    <p><b>Unread mails:</b> @Model.UnreadMails</p>
+</body>
+</html>

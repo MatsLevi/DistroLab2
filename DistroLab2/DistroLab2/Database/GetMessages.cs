@@ -88,5 +88,23 @@ namespace DistroLab2.Database
                 }
             }
         }
+
+        public static ReceivedMessage[] getReceivedMessages(int userId)
+        {
+            using (var db = new DatabaseContext())
+            {
+                try
+                {
+                    ReceivedMessage[] receivedMessage = (from ReceivedMessage in db.ReceivedMessages where ReceivedMessage.userId == userId select ReceivedMessage).ToArray();
+
+                    return receivedMessage;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Failed to get received messages!");
+                    return null;
+                }
+            }
+        }
     }
 }

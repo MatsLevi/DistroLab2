@@ -14,5 +14,13 @@ namespace DistroLab2.Controllers.MailControllers
             AuthenticateModel am = new AuthenticateModel();
             am.Register(user);
         }
+
+        public static bool UpdateLogin(string username)
+        {
+            UserModel um = new UserModel();
+            um.updateLoginInformation(username);
+
+            return false;
+        }
     }
 }

@@ -80,6 +80,8 @@ namespace DistroLab2.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    AuthenticateController.UpdateLogin(model.Email);
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
