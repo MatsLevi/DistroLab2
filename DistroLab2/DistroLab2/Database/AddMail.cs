@@ -31,6 +31,7 @@ namespace DistroLab2.Database
                         dbMsg = (from Message in db.Messages where Message.senderId == userId && Message.timestamp == time && Message.message == msg && Message.title == MessageTitle select Message).First();
                         string uName = users.ToArray()[i];
                         User user = (from User in db.Users where User.name == uName select User).First();
+                        updateTotalMess(db, user);
                         ReceivedMessage receivedMessage = new ReceivedMessage { messId = dbMsg.messId, userId = user.userId, read = false};
                         db.ReceivedMessages.Add(receivedMessage);
                     }
@@ -116,6 +117,7 @@ namespace DistroLab2.Database
                     {
                         if (users[i].userId != userId)
                         {
+                            updateTotalMess(db, users[i]);
                             ReceivedMessage receivedMessage = new ReceivedMessage { messId = dbMsg.messId, userId = users[i].userId, read = false };
                             db.ReceivedMessages.Add(receivedMessage);
                         }
@@ -138,6 +140,23 @@ namespace DistroLab2.Database
                     System.Diagnostics.Debug.WriteLine("Failed to register group mail!");
                     return null;
                 } 
+            }
+        }
+
+        private static bool updateTotalMess(DatabaseContext db, User user)
+        {
+            try
+            {
+                user.totalMess = user.totalMess + 1;
+                db.Users.Attach(user);
+                db.Entry(user).Property(e => e.totalMess).IsModified = true;
+                db.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Failed to update user total mess!");
+                return false;
             }
         }
     }

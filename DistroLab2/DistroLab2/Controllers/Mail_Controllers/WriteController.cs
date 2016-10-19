@@ -70,6 +70,12 @@ namespace DistroLab2.Controllers.Mail_Controllers
             return View("WriteMail", messageCheck);
         }
 
+        public static MailUserViewModel[] getUsers(string username)
+        {
+            GetMailModel gmm = new GetMailModel();
+            return gmm.getAllUsers(username);
+        }
+
         public static MailUserViewModel[] getUsers()
         {
             GetMailModel gmm = new GetMailModel();

@@ -4,7 +4,7 @@
 }
 
 @{
-    DistroLab2.ViewModels.MailUserViewModel[] usrs = DistroLab2.Controllers.Mail_Controllers.WriteController.getUsers();
+    DistroLab2.ViewModels.MailUserViewModel[] usrs = DistroLab2.Controllers.Mail_Controllers.WriteController.getUsers(User.Identity.Name);
 }
 
 @{

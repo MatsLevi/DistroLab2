@@ -49,6 +49,32 @@ namespace DistroLab2.Models.Mail_Models
             return IVMs;
         }
 
+        public MailUserViewModel[] getAllUsers(string username)
+        {
+            User[] dbUsers = GetUsers.getAllUsers();
+
+            if (dbUsers == null)
+            {
+                return null;
+            }
+
+            List<User> userList = new List<User>();
+            foreach(User s in dbUsers)
+            {
+                if (s.name != username)
+                    userList.Add(s);
+            }
+            dbUsers = userList.ToArray();
+
+            MailUserViewModel[] usrs = new MailUserViewModel[dbUsers.Length];
+            for (int i = 0; i < usrs.Length; i++)
+            {
+                usrs[i] = new MailUserViewModel(dbUsers[i].userId, dbUsers[i].name, dbUsers[i].removedMess, dbUsers[i].totalMess, dbUsers[i].readMess);
+            }
+
+            return usrs;
+        }
+
         public MailUserViewModel[] getAllUsers()
         {
             User[] dbUsers = GetUsers.getAllUsers();
