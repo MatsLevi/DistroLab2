@@ -5,6 +5,9 @@ using System.Web;
 
 namespace DistroLab2.Models.Mail_Models
 {
+    /// <summary>
+    /// Model that contains user data
+    /// </summary>
     public class MailUser
     {
         private int id { get; set; }
@@ -13,7 +16,10 @@ namespace DistroLab2.Models.Mail_Models
         private int totalMess { get; set; }
         private int readMess { get; set; }
 
-        internal MailUser()
+        /// <summary>
+        /// empty constructor
+        /// </summary>
+        public MailUser()
         {
             id = -1;
             username = null;
@@ -22,7 +28,11 @@ namespace DistroLab2.Models.Mail_Models
             readMess = -1;
         }
 
-        internal MailUser(string username)
+        /// <summary>
+        /// constructor taking username input
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        public MailUser(string username)
         {
             id = -1;
             this.username = username;
@@ -31,7 +41,15 @@ namespace DistroLab2.Models.Mail_Models
             readMess = 0;
         }
 
-        internal MailUser(int id, string username, int removedMess, int totalMess, int readMess)
+        /// <summary>
+        /// Constructor taking multiple inputs
+        /// </summary>
+        /// <param name="id"></param> int containing user id
+        /// <param name="username"></param> string containing user username
+        /// <param name="removedMess"></param> int containing number of removed messages
+        /// <param name="totalMess"></param> int containing total recieved messages
+        /// <param name="readMess"></param> int containing number of read messages
+        public MailUser(int id, string username, int removedMess, int totalMess, int readMess)
         {
             this.id = id;
             this.username = username;
@@ -40,6 +58,9 @@ namespace DistroLab2.Models.Mail_Models
             this.readMess = readMess;
         }
 
+        /// <summary>
+        /// Getter and setter for username
+        /// </summary>
         public string Username
         {
             get

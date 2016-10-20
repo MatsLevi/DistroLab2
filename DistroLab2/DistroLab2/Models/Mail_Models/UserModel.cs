@@ -7,18 +7,34 @@ using System.Web;
 
 namespace DistroLab2.Models.Mail_Models
 {
+    /// <summary>
+    /// Model used to update user information in database
+    /// </summary>
     public class UserModel
     {
+        /// <summary>
+        /// Empty constructor
+        /// </summary>
         public UserModel()
         {
 
         }
 
+        /// <summary>
+        /// Updates last login timestamp in the database
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <returns></returns> bool containing information wheter the update succeeded or not
         public bool updateLoginInformation(string username)
         {
             return GetUsers.updateUserInformation(username);
         }
 
+        /// <summary>
+        /// Function that retrives information on index page
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <returns></returns> IndexInfoViewModel containg index data
         public IndexInfoViewModel getIndexViewModel(string username)
         {
             User[] users = GetUsers.getAllUsers();
@@ -50,6 +66,11 @@ namespace DistroLab2.Models.Mail_Models
             return new IndexInfoViewModel(username, user.lastLogin, user.totalMonthLogin, unreadMessages);
         }
 
+        /// <summary>
+        /// Function that retrives message statistics
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <returns></returns> StatisticsViewModel containing statistics data
         public StatisticsViewModel getStatistics(string username)
         {
             User[] users = GetUsers.getAllUsers();
