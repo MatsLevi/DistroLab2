@@ -11,43 +11,46 @@ using System.Web.Mvc;
 
 namespace DistroLab2.Controllers.Mail_Controllers
 {
+    /// <summary>
+    /// The WriteController acts as a controller for the write actions.
+    /// </summary>
     [Authorize]
     public class WriteController : Controller
     {
-        // GET: Write
+        /// <summary>
+        /// Returns a WriteMail view.
+        /// </summary>
+        /// <returns> a WriteMail view.</returns>
         public ActionResult WriteMail()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns a SendToGroup view.
+        /// </summary>
+        /// <returns> a SendToGroup view.</returns>
         public ActionResult SendToGroup()
         {
             return View();
         }
 
+        /// <summary>
+        /// Makes a register mail to db call and returns a cleared WriteMail view.
+        /// </summary>
+        /// <param name="UserListViewModel"> a list of the receivers.</param>
+        /// <param name="Title"> the mail title.</param>
+        /// <param name="Message"> the mail message.</param>
+        /// <returns> a WriteMail view.</returns>
         [HttpPost]
         public ActionResult RegisterMail(List<String> UserListViewModel, String Title, String Message)
         {
-            System.Diagnostics.Debug.WriteLine("Entered Controller");
-
             if (UserListViewModel == null || Title == null || Message == null)
             {
-                System.Diagnostics.Debug.WriteLine("Nulling it up in the write Controller");
                 return View("WriteMail");
             }
-            else
-            {
-                foreach (string s in UserListViewModel)
-                    System.Diagnostics.Debug.WriteLine("List item: " + s);
-
-                System.Diagnostics.Debug.WriteLine("Title: " + Title);
-                System.Diagnostics.Debug.WriteLine("Message: " + Message);
-            }
-
-            //System.Diagnostics.Debug.WriteLine("List item: " + UserListViewModel.ToArray()[0]);
-
+            
             string currentUser = User.Identity.Name;
-            System.Diagnostics.Debug.WriteLine("User name: " + currentUser);
 
             int senderId = 0;
             MailUserViewModel[] users = getUsers();
@@ -58,9 +61,7 @@ namespace DistroLab2.Controllers.Mail_Controllers
                     senderId = m.ID;
                 }
             }
-
-
-            System.Diagnostics.Debug.WriteLine("ID of current user: " + senderId);
+            
             WriteModel mail = new WriteModel();
 
             MessageViewModel messageCheck = mail.registerMail(UserListViewModel, Title, Message, senderId);
@@ -70,38 +71,44 @@ namespace DistroLab2.Controllers.Mail_Controllers
             return View("WriteMail", messageCheck);
         }
 
+        /// <summary>
+        /// Gets all users except the the specified.
+        /// </summary>
+        /// <param name="username"> the specified users username.</param>
+        /// <returns> all users except the the specified.</returns>
         public static MailUserViewModel[] getUsers(string username)
         {
             GetMailModel gmm = new GetMailModel();
             return gmm.getAllUsers(username);
         }
 
+        /// <summary>
+        /// Gets all registered users.
+        /// </summary>
+        /// <returns> all registered users.</returns>
         public static MailUserViewModel[] getUsers()
         {
             GetMailModel gmm = new GetMailModel();
             return gmm.getAllUsers();
         }
 
+        /// <summary>
+        /// Makes a register group mail to db call and returns a cleared SendToGroup view.
+        /// </summary>
+        /// <param name="MailGroup"> the group name.</param>
+        /// <param name="Title"> the mail title.</param>
+        /// <param name="Message"> the mail title.</param>
+        /// <returns> a cleared SendToGroup view.</returns>
         [HttpPost]
         public ActionResult RegisterGroupMail(string MailGroup, String Title, String Message)
         {
-            System.Diagnostics.Debug.WriteLine("In writeController register group mail");
-
             if (MailGroup == null || Title == null || Message == null)
             {
-                System.Diagnostics.Debug.WriteLine("Nulling it up in the write Controller");
                 ModelState.Clear();
                 return View("SendToGroup");
             }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("List item: " + MailGroup);
-                System.Diagnostics.Debug.WriteLine("Title: " + Title);
-                System.Diagnostics.Debug.WriteLine("Message: " + Message);
-            }
 
             string currentUser = User.Identity.Name;
-            System.Diagnostics.Debug.WriteLine("User name: " + currentUser);
 
             int senderId = 0;
             MailUserViewModel[] users = getUsers();
