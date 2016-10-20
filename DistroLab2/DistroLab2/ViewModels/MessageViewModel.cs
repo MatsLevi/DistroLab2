@@ -5,6 +5,9 @@ using System.Web;
 
 namespace DistroLab2.ViewModels
 {
+    /// <summary>
+    /// ViewModel used to forward data to the view
+    /// </summary>
     public class MessageViewModel
     {
         private string timestamp;
@@ -12,6 +15,12 @@ namespace DistroLab2.ViewModels
         private bool success;
         private string[] receivers;
 
+        /// <summary>
+        /// Constructor for the ViewModel
+        /// </summary>
+        /// <param name="timestamp"></param> string containing mail timestamp
+        /// <param name="messId"></param> int containing id of message
+        /// <param name="success"></param> bool containing success information
         public MessageViewModel(string timestamp, int messId, bool success)
         {
             this.timestamp = timestamp;
@@ -19,6 +28,9 @@ namespace DistroLab2.ViewModels
             this.success = success;
         }
 
+        /// <summary>
+        /// Getter for mail timestamp
+        /// </summary>
         public string Timestamp
         {
             get
@@ -27,6 +39,9 @@ namespace DistroLab2.ViewModels
             }
         }
 
+        /// <summary>
+        /// Getter for mail message id
+        /// </summary>
         public int MessId
         {
             get
@@ -35,6 +50,9 @@ namespace DistroLab2.ViewModels
             }
         }
 
+        /// <summary>
+        /// Getter for success
+        /// </summary>
         public bool Success
         {
             get
@@ -43,6 +61,9 @@ namespace DistroLab2.ViewModels
             }
         }
 
+        /// <summary>
+        /// Getter and setter for mail recievers
+        /// </summary>
         public string[] Receivers
         {
             get

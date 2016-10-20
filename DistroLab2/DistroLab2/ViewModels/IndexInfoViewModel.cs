@@ -5,6 +5,9 @@ using System.Web;
 
 namespace DistroLab2.ViewModels
 {
+    /// <summary>
+    /// ViewModel used to forward data to the view
+    /// </summary>
     public class IndexInfoViewModel
     {
         private string username;
@@ -12,6 +15,13 @@ namespace DistroLab2.ViewModels
         private int loginsThisMonth;
         private int unreadMails;
 
+        /// <summary>
+        /// Constructor for the ViewModel
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <param name="lastLogin"></param> string containing time of last login
+        /// <param name="loginsThisMonth"></param> int containing number of logins this month
+        /// <param name="unreadMails"></param> int containing number of unread mails the user has
         public IndexInfoViewModel(string username, string lastLogin, int loginsThisMonth, int unreadMails)
         {
             this.username = username;
@@ -20,6 +30,9 @@ namespace DistroLab2.ViewModels
             this.unreadMails = unreadMails;
         }
 
+        /// <summary>
+        /// Getter for user username
+        /// </summary>
         public string Username
         {
             get
@@ -27,6 +40,10 @@ namespace DistroLab2.ViewModels
                 return username;
             }
         }
+
+        /// <summary>
+        /// Getter for last login
+        /// </summary>
         public string LastLogin
         {
             get
@@ -34,6 +51,10 @@ namespace DistroLab2.ViewModels
                 return lastLogin;
             }
         }
+
+        /// <summary>
+        /// Getter for number of logins this month
+        /// </summary>
         public int LoginsThisMonth
         {
             get
@@ -41,6 +62,10 @@ namespace DistroLab2.ViewModels
                 return loginsThisMonth;
             }
         }
+
+        /// <summary>
+        /// Getter for numbers of unread mails
+        /// </summary>
         public int UnreadMails
         {
             get
