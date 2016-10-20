@@ -19,12 +19,12 @@
     SelectList sl = new SelectList(groupNames);
 }
 
-<h2>SendToGroup</h2>
-
 <html>
 <head>
 </head>
 <body>
+    <h2>SendToGroup</h2>
+
     @using (Html.BeginForm("RegisterGroupMail", "Write"))
     {
         <p>Groups</p>
@@ -39,7 +39,6 @@
 
         <p></p>
         <input type="submit" />
-
     }
 </body>
 </html>

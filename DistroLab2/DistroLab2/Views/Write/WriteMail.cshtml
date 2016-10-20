@@ -5,9 +5,7 @@
 
 @{
     DistroLab2.ViewModels.MailUserViewModel[] usrs = DistroLab2.Controllers.Mail_Controllers.WriteController.getUsers(User.Identity.Name);
-}
 
-@{
     var usernames = new List<string>();
 
     for(int i = 0; i < usrs.Length; i++)
@@ -16,15 +14,13 @@
     }
 
     MultiSelectList msl = new MultiSelectList(usernames);
-
 }
-    <h2>WriteMail</h2>
 
-    <html>
+<html>
     <head>
-
     </head>
     <body>
+        <h2>WriteMail</h2>
 
         <p>Users</p>
         @using (Html.BeginForm("RegisterMail", "Write"))
