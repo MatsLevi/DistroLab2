@@ -6,13 +6,28 @@ using System.Web;
 
 namespace DistroLab2.Database
 {
+    /// <summary>
+    /// The AddMail acts as a connector to the DatabaseContext when adding mails.
+    /// </summary>
     public class AddMail
     {
+        /// <summary>
+        /// Constructs an empty AddMail instance.
+        /// </summary>
         public AddMail()
         {
 
         }
 
+        /// <summary>
+        /// Creates and adds the specified mail to the database as well as registers it to the specified users. This 
+        /// function also takes care of updating the total amount of messages on the receiving users.
+        /// </summary>
+        /// <param name="users"> the specified users receiving the message.</param>
+        /// <param name="MessageTitle"> the mail title.</param>
+        /// <param name="msg"> the mail message.</param>
+        /// <param name="userId"> the message sender id.</param>
+        /// <returns> the created mail.</returns>
         public static Message RegisterMail(List<String> users, string MessageTitle, string msg, int userId)
         {
             using (var db = new DatabaseContext())
@@ -26,9 +41,9 @@ namespace DistroLab2.Database
                     db.Messages.Add(dbMsg);
                     db.SaveChanges();
 
+                    dbMsg = (from Message in db.Messages where Message.senderId == userId && Message.timestamp == time && Message.message == msg && Message.title == MessageTitle select Message).First();
                     for (int i = 0; i < users.ToArray().Length; i++)
                     {
-                        dbMsg = (from Message in db.Messages where Message.senderId == userId && Message.timestamp == time && Message.message == msg && Message.title == MessageTitle select Message).First();
                         string uName = users.ToArray()[i];
                         User user = (from User in db.Users where User.name == uName select User).First();
                         updateTotalMess(db, user);
@@ -67,6 +82,15 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Creates and adds the specified mail to the database as well as registers it to the group users of the specified group. 
+        /// This function also takes care of updating the total amount of messages on the receiving users.
+        /// </summary>
+        /// <param name="groupName"> the specified groups groupname.</param>
+        /// <param name="MessageTitle"> the mail title.</param>
+        /// <param name="msg"> the mail message.</param>
+        /// <param name="userId"> the message sender id.</param>
+        /// <returns> the created mail.</returns>
         public static Message RegisterGroupMail(string groupName, string MessageTitle, string msg, int userId)
         {
             using (var db = new DatabaseContext())

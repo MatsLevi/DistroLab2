@@ -8,6 +8,9 @@ using System.Web;
 
 namespace DistroLab2.Database
 {
+    /// <summary>
+    /// The DatabaseContexts consists DbSets for the different tables.
+    /// </summary>
     public class DatabaseContext : DbContext
     {
         public DbSet<Group> Groups { get; set; }
@@ -17,6 +20,10 @@ namespace DistroLab2.Database
         public DbSet<ReceivedMessage> ReceivedMessages { get; set; }
     }
 
+    /// <summary>
+    /// The Group class specifies the Group table in the database and can be 
+    /// used to either retrieve, add or update a row in the table.
+    /// </summary>
     public class Group
     {
         [Key]
@@ -29,6 +36,10 @@ namespace DistroLab2.Database
         public string creator { get; set; }
     }
 
+    /// <summary>
+    /// The GroupUser class specifies the GroupUser table in the database and can be 
+    /// used to either retrieve, add or update a row in the table.
+    /// </summary>
     public class GroupUser
     {
         [Key, Column(Order = 0)]
@@ -37,6 +48,10 @@ namespace DistroLab2.Database
         public int userId { get; set; }
     }
 
+    /// <summary>
+    /// The User class specifies the User table in the database and can be 
+    /// used to either retrieve, add or update a row in the table.
+    /// </summary>
     public class User
     {
         [Key]
@@ -59,6 +74,10 @@ namespace DistroLab2.Database
         public int currentMonth { get; set; }
     }
 
+    /// <summary>
+    /// The Message class specifies the Message table in the database and can be 
+    /// used to either retrieve, add or update a row in the table.
+    /// </summary>
     public class Message
     {
         [Key]
@@ -73,6 +92,10 @@ namespace DistroLab2.Database
         public string title { get; set; }
     }
 
+    /// <summary>
+    /// The ReceivedMessage class specifies the ReceivedMessage table in the database and can be 
+    /// used to either retrieve, add or update a row in the table.
+    /// </summary>
     public class ReceivedMessage
     {
         [Key, Column(Order = 0)]

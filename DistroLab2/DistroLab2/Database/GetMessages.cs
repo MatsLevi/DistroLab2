@@ -5,8 +5,16 @@ using System.Web;
 
 namespace DistroLab2.Database
 {
+    /// <summary>
+    /// The GetMessages acts as a connector to the DatabaseContext when getting mails.
+    /// </summary>
     public class GetMessages
     {
+        /// <summary>
+        /// Gets all mails belonging to the specified user.
+        /// </summary>
+        /// <param name="username"> the specified users username.</param>
+        /// <returns> all mails belonging to the specified user.</returns>
         public static Message[] getMessages(string username)
         {
             using (var db = new DatabaseContext())
@@ -55,6 +63,13 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Gets the specified mail and updates the specified users total read messages 
+        /// as well as sets the message as read. 
+        /// </summary>
+        /// <param name="mailId"> the mail id.</param>
+        /// <param name="username"> the specified users username.</param>
+        /// <returns> the specified mail.</returns>
         public static Message getMessage(int mailId, string username)
         {
             using (var db = new DatabaseContext())
@@ -89,6 +104,11 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Gets all rows in the ReceivedMessage table belonging to the specified user.
+        /// </summary>
+        /// <param name="userId"> the user id.</param>
+        /// <returns> all rows in the ReceivedMessage table belonging to the specified user.</returns>
         public static ReceivedMessage[] getReceivedMessages(int userId)
         {
             using (var db = new DatabaseContext())

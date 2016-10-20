@@ -6,8 +6,16 @@ using DistroLab2.Models.Mail_Models;
 
 namespace DistroLab2.Database
 {
+    /// <summary>
+    /// The AddUser acts as a connector to the DatabaseContext when adding users.
+    /// </summary>
     public class AddUser
     {
+        /// <summary>
+        /// Creates and adds the specified user to the database.
+        /// </summary>
+        /// <param name="user"> the specified user.</param>
+        /// <returns> true if the user was added.</returns>
         public static bool registerUser(MailUser user)
         {
             using (var db = new DatabaseContext())

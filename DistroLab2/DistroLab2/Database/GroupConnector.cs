@@ -5,8 +5,16 @@ using System.Web;
 
 namespace DistroLab2.Database
 {
+    /// <summary>
+    /// The GroupConnector acts as a connector to the DatabaseContext for the group calls.
+    /// </summary>
     public class GroupConnector
     {
+        /// <summary>
+        /// Returns the groups the user belongs to.
+        /// </summary>
+        /// <param name="username"> the users username.</param>
+        /// <returns>the groups the user belongs to.</returns>
         public static Group[] getUserGroups(string username)
         {
             using (var db = new DatabaseContext())
@@ -51,6 +59,11 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Gets all the groups the user does not already belong to.
+        /// </summary>
+        /// <param name="username"> the users username.</param>
+        /// <returns> all the groups the user does not already belong to.</returns>
         public static Group[] getAllGroups(string username)
         {
             using (var db = new DatabaseContext())
@@ -88,6 +101,12 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Creates the specified group and adds the creator to it.
+        /// </summary>
+        /// <param name="groupName"> the group name.</param>
+        /// <param name="groupCreator"> the group creator.</param>
+        /// <returns> true if the group is successfully created and the user is added to it.</returns>
         public static bool AddGroup(string groupName, string groupCreator)
         {
             using (var db = new DatabaseContext())
@@ -128,6 +147,12 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Removes the specified user from the specified group.
+        /// </summary>
+        /// <param name="groupName"> the group name.</param>
+        /// <param name="username"> the users username.</param>
+        /// <returns> true if the user is successfully removed.</returns>
         public static bool LeaveGroup(string groupName, string username)
         {
             using (var db = new DatabaseContext())
@@ -152,6 +177,12 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Adds the specified user to the specified group.
+        /// </summary>
+        /// <param name="groupName"> the group name.</param>
+        /// <param name="username"> the users username.</param>
+        /// <returns> true if the user is successfully added.</returns>
         public static bool JoinGroup(string groupName, string username)
         {
             using (var db = new DatabaseContext())

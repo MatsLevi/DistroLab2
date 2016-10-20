@@ -5,8 +5,15 @@ using System.Web;
 
 namespace DistroLab2.Database
 {
+    /// <summary>
+    /// The GetUsers acts as a connector to the DatabaseContext when getting users.
+    /// </summary>
     public class GetUsers
     {
+        /// <summary>
+        /// Gets all users in the database.
+        /// </summary>
+        /// <returns> all users in the database.</returns>
         public static User[] getAllUsers()
         {
             using (var db = new DatabaseContext())
@@ -32,6 +39,11 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Returns the specified users name.
+        /// </summary>
+        /// <param name="id"> the specified users id.</param>
+        /// <returns> the specified users name.</returns>
         public static string getUser(int id)
         {
             using (var db = new DatabaseContext())
@@ -49,6 +61,13 @@ namespace DistroLab2.Database
             }
         }
 
+        /// <summary>
+        /// Updates the users last login timestamp as well as increments the total amount 
+        /// of logins this month. If a new month has started the total amount of logins is 
+        /// reset.
+        /// </summary>
+        /// <param name="username"> the users username.</param>
+        /// <returns> true if the update was successful. Month reset is not counted as a failure.</returns>
         public static bool updateUserInformation(string username)
         {
             using (var db = new DatabaseContext())
