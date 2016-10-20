@@ -5,6 +5,9 @@ using System.Web;
 
 namespace DistroLab2.ViewModels
 {
+    /// <summary>
+    /// ViewModel used to forward data to the view
+    /// </summary>
     public class MailUserViewModel
     {
         private int id { get; set; }
@@ -13,6 +16,14 @@ namespace DistroLab2.ViewModels
         private int totalMess { get; set; }
         private int readMess { get; set; }
 
+        /// <summary>
+        /// Constructor for the ViewModel
+        /// </summary>
+        /// <param name="id"></param> int containing user id
+        /// <param name="username"></param> string containing user username
+        /// <param name="removedMess"></param> int containing numbers of messages removed by the user
+        /// <param name="totalMess"></param> int containing number of total messages user recieved
+        /// <param name="readMess"></param> int containing number of messages read by the user
         internal MailUserViewModel(int id, string username, int removedMess, int totalMess, int readMess)
         {
             this.id = id;
@@ -22,6 +33,9 @@ namespace DistroLab2.ViewModels
             this.readMess = readMess;
         }
 
+        /// <summary>
+        /// Getter for username
+        /// </summary>
         public string Username
         {
             get
@@ -30,6 +44,9 @@ namespace DistroLab2.ViewModels
             }
         }
 
+        /// <summary>
+        /// Getter for id
+        /// </summary>
         public int ID
         {
             get
