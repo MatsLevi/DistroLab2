@@ -7,13 +7,25 @@ using System.Web;
 
 namespace DistroLab2.Models.Mail_Models
 {
+    /// <summary>
+    /// Model used to retrive mails from database
+    /// </summary>
     public class GetMailModel
     {
+        /// <summary>
+        /// Empty constructor
+        /// </summary>
         public GetMailModel()
         {
 
         }
 
+        /// <summary>
+        /// Function that retrives all mails from a chosen sender from the database
+        /// </summary>
+        /// <param name="user"></param> string string containg user username
+        /// <param name="sender"></param> string containing sender username
+        /// <returns></returns> InboxViewModel array containing mail information
         public InboxViewModel[] getAllUserMailsFromSender(string user, string sender)
         {
             Message[] messages = GetMessages.getMessages(user);
@@ -49,6 +61,11 @@ namespace DistroLab2.Models.Mail_Models
             return IVMs;
         }
 
+        /// <summary>
+        /// Function that retrives all users from the database apart from the user
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <returns></returns> MailUserViewModel array containing information regarding the users
         public MailUserViewModel[] getAllUsers(string username)
         {
             User[] dbUsers = GetUsers.getAllUsers();
@@ -75,6 +92,10 @@ namespace DistroLab2.Models.Mail_Models
             return usrs;
         }
 
+        /// <summary>
+        /// Function that retrives all users from the database
+        /// </summary>
+        /// <returns></returns> MailUserViewModel array containing information regarding the users
         public MailUserViewModel[] getAllUsers()
         {
             User[] dbUsers = GetUsers.getAllUsers();
@@ -93,6 +114,11 @@ namespace DistroLab2.Models.Mail_Models
             return usrs;
         }
 
+        /// <summary>
+        /// Function that retrives all mails a user have been sent
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <returns></returns> InboxViewModel array containing message information
         public InboxViewModel[] getAllUserMails(string username)
         {
             Message[] messages = GetMessages.getMessages(username);
@@ -105,16 +131,19 @@ namespace DistroLab2.Models.Mail_Models
             InboxViewModel[] msgs = new InboxViewModel[messages.Length];
             for (int i = 0; i < msgs.Length; i++)
             {
-                System.Diagnostics.Debug.WriteLine("msgs length: " + msgs.Length + " title: " + messages[i].title);
                 msgs[i] = new InboxViewModel(messages[i].title, messages[i].timestamp, messages[i].messId);
             }
 
             return msgs;
         }
 
+        /// <summary>
+        /// Function that retrives names of all users that have sent the user mails
+        /// </summary>
+        /// <param name="username"></param> string containing user username
+        /// <returns></returns> List<string> containing sender usernames
         public List<string> getAllMailSenders(string username)
         {
-            System.Diagnostics.Debug.WriteLine("Getting serders of recieved mails");
             Message[] messages = GetMessages.getMessages(username);
             User[] dbUsers = GetUsers.getAllUsers();
 
@@ -146,12 +175,16 @@ namespace DistroLab2.Models.Mail_Models
             return senders;
         }
 
+        /// <summary>
+        /// Function that retrives a choosen mail from the database
+        /// </summary>
+        /// <param name="mailId"></param> int containing id of desiered mail
+        /// <param name="username"></param> string containing username of user who recieved mail
+        /// <returns></returns> SpecificMailViewModel containing mail
         public SpecificMailViewModel getSpecificMail(int mailId, string username)
         {
             Message message = GetMessages.getMessage(mailId, username);
             string senderName = GetUsers.getUser(message.senderId);
-
-            System.Diagnostics.Debug.WriteLine("senderName: " + senderName + " message: " + message.message + " title: " + message.title);
 
             return new SpecificMailViewModel(senderName, message.message, message.title);
         }
